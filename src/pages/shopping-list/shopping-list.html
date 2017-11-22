@@ -1,0 +1,90 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+        <button 
+          ion-button 
+          icon-only 
+          menuToggle><ion-icon name="menu"></ion-icon></button>
+      </ion-buttons>
+    <ion-title>Shopping List</ion-title>
+    <ion-buttons end>
+      <button 
+        ion-button 
+        icon-only 
+        (click)="onShowOptions($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="editMode ? onEditItem(f) : onAddItem(f)">
+    <ion-list>
+      <ion-item>
+
+        <ion-label fixed>Name</ion-label>
+        <ion-input
+          type="text" 
+          id="ingredientName"
+          name="ingredientName"
+          placeholder="Ingredient"
+          ngModel
+          required>
+        </ion-input>
+
+      </ion-item>
+
+      <ion-item>
+
+          <ion-label fixed>Amount</ion-label>
+          <ion-input
+            type="number" 
+            id="ingredientAmount"
+            name="ingredientAmount"
+            placeholder="1"
+            ngModel
+            required>
+          </ion-input>
+
+        </ion-item>
+
+    </ion-list>
+
+    <button 
+      ion-button 
+      block 
+      type="submit"
+      [disabled]="!f.valid">
+      {{ editMode ? 'Update Item' : 'Add Item' }}
+    </button>
+
+  </form>
+  <ion-list>
+    <ion-item-sliding #itemSliding *ngFor="let item of listItems; let i = index">
+
+      <ion-item>
+        <h3>{{ item.name }} ({{ item.amount }})</h3>
+      </ion-item>
+
+      <ion-item-options side="right">
+          <button 
+            ion-button 
+            color="primary" 
+            (click)="doEditItem(i, itemSliding)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button 
+            ion-button 
+            color="danger" 
+            (click)="doRemoveItem(i, itemSliding)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

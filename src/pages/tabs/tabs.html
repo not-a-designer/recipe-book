@@ -1,0 +1,7 @@
+<ion-tabs [selectedIndex]="sIndex" (ionChange)="tabsChanged($event)">
+  <ion-tab *ngFor="let page of pages, let i = index"
+    [root]="page.page"
+    [tabTitle]="page.title"
+    [tabIcon]="page.icon">
+  </ion-tab>
+</ion-tabs>

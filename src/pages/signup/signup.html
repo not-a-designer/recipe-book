@@ -1,0 +1,67 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+        <button 
+          ion-button 
+          icon-only 
+          menuToggle><ion-icon name="menu"></ion-icon></button>
+      </ion-buttons>
+    <ion-title>Sign Up</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSignup(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input 
+          type="email" 
+          ngModel 
+          name="email" 
+          required
+          #email="ngModel"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="!email.valid && email.touched">
+        <h4 class="warning">Please enter a valid email</h4>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input 
+          type="password" 
+          ngModel 
+          name="password" 
+          required
+          min="6"
+          #password="ngModel"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="!password.valid && password.touched">
+        <h4 class="warning">Please enter a valid password</h4>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Confirm password</ion-label>
+        <ion-input 
+          type="password" 
+          ngModel 
+          name="confirm" 
+          required
+          min="6"
+          #confirm="ngModel"></ion-input>
+      </ion-item>
+      <ion-item no-lines *ngIf="password.value !== '' && confirm.touched && !confirm.valid">
+        <h4 class="warning">Please reenter your password</h4>
+      </ion-item>
+      <ion-item no-lines *ngIf="password.valid && (confirm.value !== password.value)">
+        <h4 class="warning">Passwords do not match</h4>
+      </ion-item>
+    </ion-list>
+    <button
+      ion-button
+      type="submit"
+      block
+      [disabled]="!f.valid">Signup</button>
+  </form>
+</ion-content>
